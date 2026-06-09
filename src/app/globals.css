@@ -924,8 +924,22 @@ button:disabled {
   margin-bottom: 8px;
 }
 
+.empty-state h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
 .empty-state p {
   color: #6b757b;
+}
+
+.library-section {
+  margin-top: 32px;
+}
+
+.library-section h2 {
+  color: #032b41;
+  font-size: 20px;
 }
 
 .empty-state__button {
@@ -1446,10 +1460,29 @@ button:disabled {
 }
 
 .audio-player {
+  width: 100%;
+}
+
+.player-audio {
   position: sticky;
   bottom: 0;
-  width: 100%;
   margin-top: 32px;
+  background-color: #f8faf9;
+  padding-top: 12px;
+}
+
+.player-audio__status,
+.player-audio__error {
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.player-audio__status {
+  color: #0a7a43;
+}
+
+.player-audio__error {
+  color: #c03221;
 }
 
 .skeleton-row {

@@ -23,6 +23,10 @@ function libraryCollectionPath(uid: string) {
   return collection(db, "users", uid, "library");
 }
 
+function finishedCollectionPath(uid: string) {
+  return collection(db, "users", uid, "finished");
+}
+
 export async function saveLibraryBook(uid: string, book: LibraryBook) {
   await setDoc(doc(db, "users", uid, "library", book.id), {
     ...book,
@@ -47,5 +51,27 @@ export async function getLibraryBooks(uid: string) {
   return snapshot.docs.map((libraryDoc) => ({
     id: libraryDoc.id,
     ...libraryDoc.data(),
+  })) as LibraryBook[];
+}
+
+export async function saveFinishedBook(uid: string, book: LibraryBook) {
+  await setDoc(doc(db, "users", uid, "finished", book.id), {
+    ...book,
+    finishedAt: serverTimestamp(),
+  });
+}
+
+export async function removeFinishedBook(uid: string, bookId: string) {
+  await deleteDoc(doc(db, "users", uid, "finished", bookId));
+}
+
+export async function getFinishedBooks(uid: string) {
+  const snapshot = await getDocs(
+    query(finishedCollectionPath(uid), orderBy("finishedAt", "desc")),
+  );
+
+  return snapshot.docs.map((finishedDoc) => ({
+    id: finishedDoc.id,
+    ...finishedDoc.data(),
   })) as LibraryBook[];
 }

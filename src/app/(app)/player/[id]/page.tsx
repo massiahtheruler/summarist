@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { AudioPlayer } from "@/components/AudioPlayer";
 import { getBookById } from "@/lib/books";
 
 type PlayerPageProps = {
@@ -20,9 +21,17 @@ export default async function PlayerPage({ params }: PlayerPageProps) {
         <h1>{book.title}</h1>
       </div>
       <p className="player-page__summary">{book.summary}</p>
-      <audio className="audio-player" controls src={book.audioLink}>
-        <track kind="captions" />
-      </audio>
+      <AudioPlayer
+        audioLink={book.audioLink}
+        book={{
+          id: book.id,
+          author: book.author,
+          title: book.title,
+          subTitle: book.subTitle,
+          imageLink: book.imageLink,
+          subscriptionRequired: book.subscriptionRequired,
+        }}
+      />
     </section>
   );
 }

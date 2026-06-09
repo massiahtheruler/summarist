@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import { FiTrash2 } from "react-icons/fi";
 import { useAuth } from "@/context/AuthContext";
 import {
+  getFinishedBooks,
   getLibraryBooks,
+  removeFinishedBook,
   removeLibraryBook,
   type LibraryBook,
 } from "@/lib/library";
@@ -14,6 +16,7 @@ import {
 export function LibraryContent() {
   const { isAuthReady, openAuthModal, user } = useAuth();
   const [books, setBooks] = useState<LibraryBook[]>([]);
+  const [finishedBooks, setFinishedBooks] = useState<LibraryBook[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -28,6 +31,7 @@ export function LibraryContent() {
       if (!user) {
         setIsLoading(false);
         setBooks([]);
+        setFinishedBooks([]);
         return;
       }
 
@@ -35,10 +39,14 @@ export function LibraryContent() {
       setError("");
 
       try {
-        const savedBooks = await getLibraryBooks(user.uid);
+        const [savedBooks, completedBooks] = await Promise.all([
+          getLibraryBooks(user.uid),
+          getFinishedBooks(user.uid),
+        ]);
 
         if (isMounted) {
           setBooks(savedBooks);
+          setFinishedBooks(completedBooks);
         }
       } catch {
         if (isMounted) {
@@ -65,6 +73,17 @@ export function LibraryContent() {
 
     await removeLibraryBook(user.uid, bookId);
     setBooks((currentBooks) => currentBooks.filter((book) => book.id !== bookId));
+  }
+
+  async function handleRemoveFinished(bookId: string) {
+    if (!user) {
+      return;
+    }
+
+    await removeFinishedBook(user.uid, bookId);
+    setFinishedBooks((currentBooks) =>
+      currentBooks.filter((book) => book.id !== bookId),
+    );
   }
 
   if (!isAuthReady || isLoading) {
@@ -97,17 +116,58 @@ export function LibraryContent() {
     <section className="library-page">
       <h1>My Library</h1>
       {error ? <p className="library-page__error">{error}</p> : null}
+      <LibrarySection
+        books={books}
+        emptyDescription="Add a title from any book page and it will show up here."
+        emptyTitle="Saved books will appear here"
+        onRemove={handleRemove}
+        title="Saved Books"
+      />
+      <LibrarySection
+        books={finishedBooks}
+        emptyDescription="When an audio summary reaches the end, it will show up here."
+        emptyTitle="Finished books will appear here"
+        onRemove={handleRemoveFinished}
+        title="Finished Books"
+      />
+    </section>
+  );
+}
+
+type LibrarySectionProps = {
+  books: LibraryBook[];
+  emptyDescription: string;
+  emptyTitle: string;
+  onRemove: (bookId: string) => void;
+  title: string;
+};
+
+function LibrarySection({
+  books,
+  emptyDescription,
+  emptyTitle,
+  onRemove,
+  title,
+}: LibrarySectionProps) {
+  return (
+    <section className="library-section">
+      <h2>{title}</h2>
       {books.length === 0 ? (
         <div className="empty-state">
-          <h2>Saved books will appear here</h2>
-          <p>Add a title from any book page and it will show up here.</p>
+          <h3>{emptyTitle}</h3>
+          <p>{emptyDescription}</p>
         </div>
       ) : (
         <div className="library-list">
           {books.map((book) => (
             <article className="library-list__item" key={book.id}>
               <Link className="library-list__book" href={`/book/${book.id}`}>
-                <Image src={book.imageLink} alt={book.title} width={80} height={120} />
+                <Image
+                  src={book.imageLink}
+                  alt={book.title}
+                  width={80}
+                  height={120}
+                />
                 <span>
                   <strong>{book.title}</strong>
                   <small>{book.author}</small>
@@ -115,9 +175,9 @@ export function LibraryContent() {
                 </span>
               </Link>
               <button
-                aria-label={`Remove ${book.title} from library`}
+                aria-label={`Remove ${book.title} from ${title}`}
                 className="library-list__remove"
-                onClick={() => handleRemove(book.id)}
+                onClick={() => onRemove(book.id)}
                 type="button"
               >
                 <FiTrash2 aria-hidden="true" />
