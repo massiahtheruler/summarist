@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { AuthModal } from "@/components/AuthModal";
 import { AuthProvider } from "@/context/AuthContext";
+import { ReaderProvider } from "@/context/ReaderContext";
 import { SubscriptionProvider } from "@/context/SubscriptionContext";
 import "./globals.css";
 
@@ -26,8 +27,10 @@ export default function RootLayout({
       <body>
         <AuthProvider>
           <SubscriptionProvider>
-            {children}
-            <AuthModal />
+            <ReaderProvider>
+              {children}
+              <AuthModal />
+            </ReaderProvider>
           </SubscriptionProvider>
         </AuthProvider>
       </body>

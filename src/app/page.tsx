@@ -7,6 +7,7 @@ import {
 import { BiCrown } from "react-icons/bi";
 import { BsStarFill, BsStarHalf } from "react-icons/bs";
 import { RiLeafLine } from "react-icons/ri";
+import { ActiveHeadings } from "@/components/ActiveHeadings";
 import { LoginButton } from "@/components/LoginButton";
 
 const footerGroups = [
@@ -242,18 +243,7 @@ export default function Home() {
               </div>
 
               <div className="statistics__wrapper">
-                <div className="statistics__content--header">
-                  {topHeadings.map((heading, index) => (
-                    <div
-                      className={`statistics__heading ${
-                        index === 0 ? "statistics__heading--active" : ""
-                      }`}
-                      key={heading}
-                    >
-                      {heading}
-                    </div>
-                  ))}
-                </div>
+                <ActiveHeadings headings={topHeadings} />
                 <div className="statistics__content--details">
                   {topStats.map((stat) => (
                     <div className="statistics__data" key={stat.number}>
@@ -277,13 +267,7 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <div className="statistics__content--header statistics__content--header-second">
-                  {bottomHeadings.map((heading) => (
-                    <div className="statistics__heading" key={heading}>
-                      {heading}
-                    </div>
-                  ))}
-                </div>
+                <ActiveHeadings align="end" headings={bottomHeadings} />
               </div>
             </div>
           </div>

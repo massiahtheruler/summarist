@@ -14,6 +14,7 @@ import {
   FiStar,
 } from "react-icons/fi";
 import { useAuth } from "@/context/AuthContext";
+import { useReader } from "@/context/ReaderContext";
 
 const navItems = [
   { label: "For you", href: "/for-you", icon: FiHome },
@@ -27,6 +28,14 @@ const navItems = [
 export function Sidebar() {
   const pathname = usePathname();
   const { logout, openAuthModal, user } = useAuth();
+  const { readerSize, setReaderSize } = useReader();
+  const isPlayerPage = pathname.startsWith("/player/");
+  const readerOptions = [
+    { label: "Small text", size: "small", text: "Aᵃ" },
+    { label: "Default text", size: "medium", text: "Aₐ" },
+    { label: "Large text", size: "large", text: "Aɑ" },
+    { label: "Extra large text", size: "xlarge", text: "Aɑ" },
+  ] as const;
 
   return (
     <aside className="sidebar">
@@ -59,6 +68,24 @@ export function Sidebar() {
           );
         })}
       </nav>
+
+      {isPlayerPage ? (
+        <div className="reader-controls" aria-label="Reader text size">
+          {readerOptions.map((option) => (
+            <button
+              aria-label={option.label}
+              className={`reader-controls__button reader-controls__button--${option.size} ${
+                readerSize === option.size ? "reader-controls__button--active" : ""
+              }`}
+              key={option.size}
+              onClick={() => setReaderSize(option.size)}
+              type="button"
+            >
+              {option.text}
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       <button
         className="sidebar__auth"
