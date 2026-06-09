@@ -2,6 +2,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   orderBy,
   query,
@@ -31,6 +32,11 @@ export async function saveLibraryBook(uid: string, book: LibraryBook) {
 
 export async function removeLibraryBook(uid: string, bookId: string) {
   await deleteDoc(doc(db, "users", uid, "library", bookId));
+}
+
+export async function hasLibraryBook(uid: string, bookId: string) {
+  const libraryDoc = await getDoc(doc(db, "users", uid, "library", bookId));
+  return libraryDoc.exists();
 }
 
 export async function getLibraryBooks(uid: string) {

@@ -1,10 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FirebaseError } from "firebase/app";
 import { FiBookmark } from "react-icons/fi";
 import { useAuth } from "@/context/AuthContext";
-import { saveLibraryBook, type LibraryBook } from "@/lib/library";
+import {
+  hasLibraryBook,
+  saveLibraryBook,
+  type LibraryBook,
+} from "@/lib/library";
 
 type SaveToLibraryButtonProps = {
   book: LibraryBook;
@@ -16,6 +20,35 @@ export function SaveToLibraryButton({ book }: SaveToLibraryButtonProps) {
     "idle",
   );
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function checkSavedStatus() {
+      if (!isAuthReady || !user) {
+        setStatus("idle");
+        return;
+      }
+
+      try {
+        const isSaved = await hasLibraryBook(user.uid, book.id);
+
+        if (isMounted) {
+          setStatus(isSaved ? "saved" : "idle");
+        }
+      } catch {
+        if (isMounted) {
+          setStatus("idle");
+        }
+      }
+    }
+
+    checkSavedStatus();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [book.id, isAuthReady, user]);
 
   function getLibraryErrorMessage(error: unknown) {
     if (error instanceof FirebaseError) {
