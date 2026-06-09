@@ -10,6 +10,16 @@ This is not one of those projects where I only made the screen look right. I wan
 
 [View Live Demo | https://summarist-rust.vercel.app](https://summarist-rust.vercel.app)
 
+demo account credentials:
+
+Standard User -
+Username: guest123@gmail.com
+Password: guest123
+
+Premium User -
+Username: guest@gmail.com
+Password: guest123
+
 ---
 
 ## Features
