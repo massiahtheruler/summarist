@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import { AuthModal } from "@/components/AuthModal";
 import { AuthProvider } from "@/context/AuthContext";
+import { SubscriptionProvider } from "@/context/SubscriptionContext";
 import "./globals.css";
 
 const roboto = Roboto({
@@ -24,8 +25,10 @@ export default function RootLayout({
     <html lang="en" className={roboto.variable}>
       <body>
         <AuthProvider>
-          {children}
-          <AuthModal />
+          <SubscriptionProvider>
+            {children}
+            <AuthModal />
+          </SubscriptionProvider>
         </AuthProvider>
       </body>
     </html>

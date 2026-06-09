@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { BsStarFill } from "react-icons/bs";
+import { BookActions } from "@/components/BookActions";
+import { SaveToLibraryButton } from "@/components/SaveToLibraryButton";
 import { getBookById } from "@/lib/books";
 
 type BookPageProps = {
@@ -30,14 +32,20 @@ export default async function BookPage({ params }: BookPageProps) {
             <span>{book.keyIdeas} key ideas</span>
             <span>{book.type}</span>
           </div>
-          <div className="book-detail__actions">
-            <a className="btn" href={`/player/${book.id}`}>
-              Read
-            </a>
-            <a className="btn btn--secondary" href={`/player/${book.id}`}>
-              Listen
-            </a>
-          </div>
+          <BookActions
+            bookId={book.id}
+            subscriptionRequired={book.subscriptionRequired}
+          />
+          <SaveToLibraryButton
+            book={{
+              id: book.id,
+              author: book.author,
+              title: book.title,
+              subTitle: book.subTitle,
+              imageLink: book.imageLink,
+              subscriptionRequired: book.subscriptionRequired,
+            }}
+          />
         </div>
         <Image
           className="book-detail__image"

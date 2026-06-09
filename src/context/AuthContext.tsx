@@ -22,6 +22,7 @@ import { auth, googleProvider, type FirebaseUser } from "@/lib/firebase";
 
 type AuthContextValue = {
   user: FirebaseUser | null;
+  isAuthReady: boolean;
   isAuthOpen: boolean;
   openAuthModal: () => void;
   closeAuthModal: () => void;
@@ -37,11 +38,15 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<FirebaseUser | null>(null);
+  const [isAuthReady, setIsAuthReady] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    return onAuthStateChanged(auth, setUser);
+    return onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setIsAuthReady(true);
+    });
   }, []);
 
   const goToForYou = useCallback(
@@ -60,6 +65,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
+      isAuthReady,
       isAuthOpen,
       openAuthModal: () => setIsAuthOpen(true),
       closeAuthModal: () => setIsAuthOpen(false),
@@ -87,7 +93,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         goHomeAfterLogout();
       },
     }),
-    [goHomeAfterLogout, goToForYou, isAuthOpen, user],
+    [goHomeAfterLogout, goToForYou, isAuthOpen, isAuthReady, user],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
