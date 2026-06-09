@@ -919,6 +919,41 @@ button:disabled {
   font-weight: 700;
 }
 
+.settings-empty {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 32px;
+  align-items: center;
+  margin-top: 24px;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 32px;
+}
+
+.settings-empty img {
+  width: 100%;
+  height: auto;
+}
+
+.settings-empty h2 {
+  color: #032b41;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.settings-empty p {
+  color: #394547;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 12px;
+}
+
+.settings-empty__button {
+  max-width: 180px;
+  margin-top: 22px;
+}
+
 .empty-state h2 {
   font-size: 20px;
   margin-bottom: 8px;
@@ -1636,6 +1671,22 @@ button:disabled {
   .settings-panel,
   .book-detail__intro {
     display: block;
+  }
+
+  .settings-empty {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .settings-empty img {
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .settings-empty__button {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .settings-panel__button {

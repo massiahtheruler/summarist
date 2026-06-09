@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
@@ -38,14 +39,24 @@ export function SettingsContent() {
     return (
       <section className="settings-page">
         <h1>Settings</h1>
-        <div className="settings-panel settings-panel--stacked">
+        <div className="settings-empty">
+          <Image
+            src="/assets/login.png"
+            alt=""
+            width={360}
+            height={300}
+            priority
+          />
           <div>
-            <p className="settings-panel__label">You are not logged in</p>
-            <p className="settings-panel__value">Log in to view your account.</p>
+            <h2>Log in to view your account</h2>
+            <p>
+              Your subscription status, email, library, and finished books are
+              tied to your Summarist account.
+            </p>
+            <button className="btn settings-empty__button" onClick={openAuthModal} type="button">
+              Login
+            </button>
           </div>
-          <button className="btn settings-panel__button" onClick={openAuthModal} type="button">
-            Login
-          </button>
         </div>
       </section>
     );
