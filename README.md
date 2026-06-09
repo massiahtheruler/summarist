@@ -1,162 +1,144 @@
 # Summarist
 
-A full-stack audiobook and book summary platform built as part of the Frontend Simplified Virtual Internship.
+Summarist is a book summary and audio platform I built for the Frontend Simplified Virtual Internship.
 
-The application allows users to browse book summaries, listen to audio content, manage subscriptions, access premium content, search books, and manage their account through a modern, responsive user experience.
+The assignment was to recreate a full subscription-based web application featuring authentication, book browsing, dynamic routes, audio playback, premium access, Stripe subscriptions, settings, search, sidebar navigation, saved books, and finished books. They gave us the homepage HTML/CSS and assets, which helped, but the real work was turning that starter into a full Next app with actual routes, state, auth, payments, database behavior, and all the little user flows that make it feel finished.
 
-**Tech Stack:** Next.js, React, TypeScript, Firebase, Stripe, Redux Toolkit
+This is not one of those projects where I only made the screen look right. I wanted the app to actually move like the requirements said it should move. If a user is logged out, the app reacts. If a book is premium, access is gated. If a book gets saved, it goes to Firestore. If the audio finishes, it shows up under finished books. If checkout succeeds, the app responds like a subscription product.
 
-## Live Demo
+## Live demo
 
-[View Live Demo](https://summarist-rust.vercel.app/)
+[View Live Demo | https://summarist-rust.vercel.app](https://summarist-rust.vercel.app)
 
 ---
 
 ## Features
 
-### Authentication
-
-- User registration with email and password
-- User login and logout
-- Guest login functionality
-- Protected routes and content access
-- Persistent authentication state across sessions
-
-### Book Discovery
-
-- Personalized "For You" recommendations
-- Recommended books section
-- Suggested books section
-- Dynamic book detail pages
-- Search books by title or author
-
-### Audio Experience
-
-- Custom audio player
-- Play and pause controls
-- Skip forward and backward controls
-- Seek through audio progress
-- Dynamic duration tracking
-- Book summary reading experience
-
-### Premium Content
-
-- Free and premium book access
-- Subscription-based content gating
-- Conditional user access based on plan status
-- Upgrade flow for restricted content
-
-### Subscription Management
-
-- Monthly subscription plan
-- Annual subscription plan
-- Stripe payment integration
-- User subscription status tracking
-- Settings page with account information
-
-### User Experience
-
-- Responsive design
+- Converted homepage using the provided Summarist HTML, CSS, logo, and assets
+- Firebase email/password auth, guest login, Google login, logout, and forgot password
+- Custom auth modal instead of a generic Firebase UI widget
+- App shell with sidebar navigation and top search
+- Real book data from the provided Summarist API
+- `/for-you` page with selected, recommended, and suggested books
+- Dynamic book detail pages at `/book/[id]`
+- Dynamic player pages at `/player/[id]`
+- Premium book access logic
+- Stripe Checkout subscriptions for monthly and yearly plans
+- Settings page with logged-in and logged-out states
+- Search with debounce
 - Skeleton loading states
-- Sidebar navigation
-- Search with debouncing
-- Dynamic routing
-- Global state management
+- Responsive layout across the main app routes
 
----
+Beyond the required internship scope, I also implemented:
+
+- Firestore library persistence
+- Finished books tracking
+- Google authentication
+- Forgot password flow
+- Reader text-size controls on the player page
+- Active rotating homepage headings
+- Extra UX polish around logged-out settings, saved-book state, and premium access
+
+I also kept some things intentionally different from the reference. The reference player felt dated to me, and the native browser audio player is cleaner and more useful because it already gives users playback, seeking, speed, download, and other browser-supported controls. I did not want to rebuild a worse player just to match a screenshot.
 
 ## Tech Stack
 
 ### Frontend
 
-- Next.js
-- React
+- Next.js 16 App Router
+- React 19
 - TypeScript
-- Redux Toolkit
+- CSS
 - React Icons
 
-### Backend & Services
+### Auth, Data, and Payments
 
 - Firebase Authentication
-- Firestore Database
-- Stripe Payments
+- Firestore
+- Stripe Checkout
+- Stripe subscriptions
 
 ### Deployment
 
 - Vercel
 
----
+## Architecture Highlights
 
-## Challenges & Learnings
+- Firebase Authentication and Firestore-backed user data
+- Stripe Checkout subscriptions with monthly and yearly plans
+- Protected premium content and gated read/listen actions
+- Dynamic book and player routes using the Next.js App Router
+- Persistent saved books and finished books per user
+- Shared React Context providers for authentication, subscription state, and reader preferences
 
-This project provided experience working with several real-world application concerns beyond simple UI development.
+Firestore user data is scoped under the signed-in user's UID:
 
-Some of the more challenging aspects included:
+```txt
+users/{uid}/library/{bookId}
+users/{uid}/finished/{bookId}
+```
 
-- Managing authentication state across multiple pages
-- Persisting user session data between refreshes
-- Integrating Stripe subscriptions with Firebase
-- Synchronizing premium account status with content access
-- Building a custom audio player experience
-- Handling protected routes and user permissions
-- Managing loading states throughout the application
-- Creating responsive layouts while maintaining feature parity
+Stripe uses Checkout Sessions in subscription mode with separate monthly and yearly price IDs.
 
-One implementation decision I made was keeping a custom audio player experience rather than relying entirely on a basic implementation. This provided greater control over the user experience while supporting playback controls, progress tracking, and audio navigation.
+## Main Challenges
 
----
+The UI was not really the hard part. The hard part was getting all the little systems to agree with each other.
+
+Some of the bigger pieces I had to work through:
+
+- Making auth state control the app instead of just sitting behind a login button
+- Making checkout require a logged-in user so a subscription belongs to an account
+- Connecting premium access to book behavior without overbuilding the backend
+- Saving library and finished-book state to Firestore per user
+- Making the book page know when a title was already saved after coming back later
+- Keeping auth, payment, saved-book, and settings states from feeling disconnected
+- Knowing when to follow the reference and when to make a better product decision
+
+That last part mattered. I wanted this to feel like I built the product, not like I blindly copied every old design choice from the reference.
 
 ## Getting Started
 
-### Install Dependencies
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-### Run Development Server
+Run the development server:
 
 ```bash
 npm run dev
 ```
 
----
+Open:
+
+```txt
+http://localhost:3000
+```
+
+Run checks:
+
+```bash
+npm run lint
+npm run build
+```
 
 ## Future Improvements
 
-- Google Authentication
-- Password Reset Functionality
-- User Library Persistence
-- Book Completion Tracking
-- Reading Progress Tracking
-- Favorites System
-- Improved Analytics
-- Enhanced Audio Controls
+If this became a real production product, I would add:
 
----
+- Stripe webhooks
+- Server-verified subscription status
+- Firestore user subscription documents
+- Customer portal support for cancellation and plan changes
+- Reading progress tracking
+- Stronger API error states
 
-## What This Project Demonstrates
-
-- React and Next.js development
-- TypeScript usage in production-style workflows
-- Authentication and authorization
-- State management with Redux Toolkit
-- API integration
-- Payment processing
-- Protected content workflows
-- Dynamic routing
-- Responsive design
-- Real-world application architecture
-
----
-
-## Acknowledgements
-
-This project was completed as part of the Frontend Simplified Virtual Internship program and was built using the provided design specifications and project requirements.
+For this internship, I focused on making the full required flow work, then added the optionals that made the app feel complete.
 
 ## Author
 
-Justin H. | Frontend Engineer
+Justin H.
 
 [GitHub.com/massiahtheruler](https://github.com/massiahtheruler/)
 

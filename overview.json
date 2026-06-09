@@ -1,0 +1,443 @@
+{
+  "rootFolder": "/Users/christinemarquez/Desktop/VI/summarist",
+  "analyzedAt": "2026-06-09T10:43:37.155Z",
+  "rootStructure": [
+    {
+      "name": ".gitignore",
+      "type": "file",
+      "size": 480,
+      "lines": 42
+    },
+    {
+      "name": "AGENTS.md",
+      "type": "file",
+      "size": 327,
+      "lines": 6
+    },
+    {
+      "name": "CLAUDE.md",
+      "type": "file",
+      "size": 11,
+      "lines": 2
+    },
+    {
+      "name": "README.md",
+      "type": "file",
+      "size": 5099,
+      "lines": 146
+    },
+    {
+      "name": "eslint.config.mjs",
+      "type": "file",
+      "size": 465,
+      "lines": 19
+    },
+    {
+      "name": "next-env.d.ts",
+      "type": "file",
+      "size": 247,
+      "lines": 7
+    },
+    {
+      "name": "next.config.ts",
+      "type": "file",
+      "size": 288,
+      "lines": 18
+    },
+    {
+      "name": "node_modules",
+      "type": "dir"
+    },
+    {
+      "name": "package-lock.json",
+      "type": "file",
+      "size": 251913,
+      "lines": 7134
+    },
+    {
+      "name": "package.json",
+      "type": "file",
+      "size": 589,
+      "lines": 29
+    },
+    {
+      "name": "public",
+      "type": "dir"
+    },
+    {
+      "name": "src",
+      "type": "dir"
+    },
+    {
+      "name": "tsconfig.json",
+      "type": "file",
+      "size": 670,
+      "lines": 35
+    }
+  ],
+  "rootFileSnippets": {
+    "AGENTS.md": [
+      "<!-- BEGIN:nextjs-agent-rules -->",
+      "# This is NOT the Next.js you know",
+      "",
+      "This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.",
+      "<!-- END:nextjs-agent-rules -->",
+      ""
+    ],
+    "CLAUDE.md": [
+      "@AGENTS.md",
+      ""
+    ],
+    "README.md": [
+      "# Summarist",
+      "",
+      "Summarist is a book summary and audio platform I built for the Frontend Simplified Virtual Internship.",
+      "",
+      "The assignment was to recreate a full subscription-based web application featuring authentication, book browsing, dynamic routes, audio playback, premium access, Stripe subscriptions, settings, search, sidebar navigation, saved books, and finished books. They gave us the homepage HTML/CSS and assets, which helped, but the real work was turning that starter into a full Next app with actual routes, state, auth, payments, database behavior, and all the little user flows that make it feel finished.",
+      "",
+      "This is not one of those projects where I only made the screen look right. I wanted the app to actually move like the requirements said it should move. If a user is logged out, the app reacts. If a book is premium, access is gated. If a book gets saved, it goes to Firestore. If the audio finishes, it shows up under finished books. If checkout succeeds, the app responds like a subscription product.",
+      "",
+      "## Live demo",
+      ""
+    ],
+    "eslint.config.mjs": [
+      "import { defineConfig, globalIgnores } from \"eslint/config\";",
+      "import nextVitals from \"eslint-config-next/core-web-vitals\";",
+      "import nextTs from \"eslint-config-next/typescript\";",
+      "",
+      "const eslintConfig = defineConfig([",
+      "...nextVitals,",
+      "...nextTs,",
+      "// Override default ignores of eslint-config-next.",
+      "globalIgnores([",
+      "// Default ignores of eslint-config-next:"
+    ],
+    "next-env.d.ts": [
+      "/// <reference types=\"next\" />",
+      "/// <reference types=\"next/image-types/global\" />",
+      "import \"./.next/types/routes.d.ts\";",
+      "",
+      "// NOTE: This file should not be edited",
+      "// see https://nextjs.org/docs/app/api-reference/config/typescript for more information.",
+      ""
+    ],
+    "next.config.ts": [
+      "import type { NextConfig } from \"next\";",
+      "",
+      "const nextConfig: NextConfig = {",
+      "turbopack: {",
+      "root: __dirname,",
+      "},",
+      "images: {",
+      "remotePatterns: [",
+      "{",
+      "protocol: \"https\","
+    ],
+    "package-lock.json": [
+      "{",
+      "\"name\": \"summarist\",",
+      "\"version\": \"0.1.0\",",
+      "\"lockfileVersion\": 3,",
+      "\"requires\": true,",
+      "\"packages\": {",
+      "\"\": {",
+      "\"name\": \"summarist\",",
+      "\"version\": \"0.1.0\",",
+      "\"dependencies\": {"
+    ],
+    "package.json": [
+      "{",
+      "\"name\": \"summarist\",",
+      "\"version\": \"0.1.0\",",
+      "\"private\": true,",
+      "\"scripts\": {",
+      "\"dev\": \"next dev\",",
+      "\"build\": \"next build\",",
+      "\"start\": \"next start\",",
+      "\"lint\": \"eslint\"",
+      "},"
+    ],
+    "tsconfig.json": [
+      "{",
+      "\"compilerOptions\": {",
+      "\"target\": \"ES2017\",",
+      "\"lib\": [\"dom\", \"dom.iterable\", \"esnext\"],",
+      "\"allowJs\": true,",
+      "\"skipLibCheck\": true,",
+      "\"strict\": true,",
+      "\"noEmit\": true,",
+      "\"esModuleInterop\": true,",
+      "\"module\": \"esnext\","
+    ]
+  },
+  "importantFolders": [
+    {
+      "path": "public",
+      "category": "assets",
+      "fileCount": 10
+    },
+    {
+      "path": "public/assets",
+      "category": "assets",
+      "fileCount": 5
+    },
+    {
+      "path": "src/app",
+      "category": "frontend",
+      "fileCount": 15,
+      "primaryLanguage": "TypeScript"
+    },
+    {
+      "path": "src/app/(app)",
+      "category": "frontend",
+      "fileCount": 7,
+      "primaryLanguage": "TypeScript"
+    },
+    {
+      "path": "src/app/(app)/library",
+      "category": "core",
+      "fileCount": 1,
+      "primaryLanguage": "TypeScript"
+    },
+    {
+      "path": "src/app/(app)/settings",
+      "category": "config",
+      "fileCount": 1,
+      "primaryLanguage": "TypeScript"
+    },
+    {
+      "path": "src/app/api",
+      "category": "backend",
+      "fileCount": 2,
+      "primaryLanguage": "TypeScript"
+    },
+    {
+      "path": "src/app/api/create-checkout-session",
+      "category": "build",
+      "fileCount": 1,
+      "primaryLanguage": "TypeScript"
+    },
+    {
+      "path": "src/components",
+      "category": "frontend",
+      "fileCount": 14,
+      "primaryLanguage": "TypeScript"
+    },
+    {
+      "path": "src/lib",
+      "category": "core",
+      "fileCount": 4,
+      "primaryLanguage": "TypeScript"
+    }
+  ],
+  "readmeParagraphs": {
+    "root": "# Summarist"
+  },
+  "totals": {
+    "numFiles": 57,
+    "numDirs": 26,
+    "totalSizeBytes": 453746,
+    "totalLinesOfCode": 2347
+  },
+  "fileCategories": {
+    "other": 16,
+    "documentation": 3,
+    "source": 35,
+    "config": 3
+  },
+  "linesOfCodePerLanguage": {
+    "TypeScript": 2347
+  },
+  "filesPerLanguage": {
+    "TypeScript": 35
+  },
+  "projectTypes": [
+    "JavaScript/Node.js"
+  ],
+  "frameworks": [
+    "React",
+    "Next.js"
+  ],
+  "entryPoints": [],
+  "ciCdTools": [],
+  "packageManagers": [
+    "npm/yarn"
+  ],
+  "topLevelDirectories": [
+    {
+      "name": "src",
+      "numFiles": 36,
+      "totalLoc": 2322,
+      "dominantLanguage": "TypeScript"
+    },
+    {
+      "name": "public",
+      "numFiles": 10,
+      "totalLoc": 0
+    }
+  ],
+  "detailedDirectories": [
+    {
+      "path": "src",
+      "name": "src",
+      "level": 1,
+      "numFiles": 36,
+      "totalLoc": 2322,
+      "dominantLanguage": "TypeScript",
+      "category": "General",
+      "description": "General module with 36 files (TypeScript)",
+      "subdirectories": [
+        {
+          "path": "src/components",
+          "name": "components",
+          "level": 2,
+          "numFiles": 14,
+          "totalLoc": 1184,
+          "dominantLanguage": "TypeScript",
+          "category": "General",
+          "description": "General module with 14 files (TypeScript)",
+          "subdirectories": []
+        },
+        {
+          "path": "src/app",
+          "name": "app",
+          "level": 2,
+          "numFiles": 15,
+          "totalLoc": 730,
+          "dominantLanguage": "TypeScript",
+          "category": "Application",
+          "description": "Application module with 15 files (TypeScript)",
+          "subdirectories": [
+            {
+              "path": "src/app/(app)",
+              "name": "(app)",
+              "level": 3,
+              "numFiles": 7,
+              "totalLoc": 228,
+              "dominantLanguage": "TypeScript",
+              "category": "Application",
+              "description": "Application module with 7 files (TypeScript)",
+              "subdirectories": []
+            },
+            {
+              "path": "src/app/api",
+              "name": "api",
+              "level": 3,
+              "numFiles": 2,
+              "totalLoc": 68,
+              "dominantLanguage": "TypeScript",
+              "category": "Service",
+              "description": "Service module with 2 files (TypeScript)",
+              "subdirectories": []
+            },
+            {
+              "path": "src/app/choose-plan",
+              "name": "choose-plan",
+              "level": 3,
+              "numFiles": 1,
+              "totalLoc": 27,
+              "dominantLanguage": "TypeScript",
+              "category": "General",
+              "description": "General module with 1 files (TypeScript)",
+              "subdirectories": []
+            }
+          ]
+        },
+        {
+          "path": "src/context",
+          "name": "context",
+          "level": 2,
+          "numFiles": 3,
+          "totalLoc": 238,
+          "dominantLanguage": "TypeScript",
+          "category": "General",
+          "description": "General module with 3 files (TypeScript)",
+          "subdirectories": []
+        },
+        {
+          "path": "src/lib",
+          "name": "lib",
+          "level": 2,
+          "numFiles": 4,
+          "totalLoc": 170,
+          "dominantLanguage": "TypeScript",
+          "category": "Library",
+          "description": "Library module with 4 files (TypeScript)",
+          "subdirectories": []
+        }
+      ]
+    },
+    {
+      "path": "public",
+      "name": "public",
+      "level": 1,
+      "numFiles": 10,
+      "totalLoc": 0,
+      "category": "General",
+      "description": "General module with 10 files",
+      "subdirectories": [
+        {
+          "path": "public/assets",
+          "name": "assets",
+          "level": 2,
+          "numFiles": 5,
+          "totalLoc": 0,
+          "category": "General",
+          "description": "General module with 5 files",
+          "subdirectories": []
+        }
+      ]
+    }
+  ],
+  "architecturalInsights": {
+    "coreApplications": [],
+    "entryPointDetails": [],
+    "serviceArchitecture": {
+      "microservices": [],
+      "monoliths": [],
+      "libraries": []
+    },
+    "layeredArchitecture": {
+      "presentation": [],
+      "business": [],
+      "data": [],
+      "infrastructure": []
+    }
+  },
+  "largeFiles": [],
+  "dependencies": {
+    "production": [
+      "@stripe/stripe-js",
+      "firebase",
+      "next",
+      "react",
+      "react-dom",
+      "react-icons",
+      "stripe"
+    ],
+    "development": [
+      "@types/node",
+      "@types/react",
+      "@types/react-dom",
+      "eslint",
+      "eslint-config-next",
+      "typescript"
+    ],
+    "total": 13
+  },
+  "complexity": {
+    "averageFileSize": 41.175438596491226,
+    "maxFileSize": 0,
+    "nestedDepth": 0,
+    "estimatedComplexity": "low"
+  },
+  "gitRepo": {
+    "firstCommitDate": "2026-06-09",
+    "totalCommits": 9,
+    "numContributors": 0,
+    "currentBranch": "main",
+    "remoteUrls": [
+      "https://github.com/massiahtheruler/summarist.git"
+    ]
+  }
+}
