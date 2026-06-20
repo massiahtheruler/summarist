@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { AudioPlayer } from "@/components/AudioPlayer";
+import { PlayerAccessGate } from "@/components/PlayerAccessGate";
 import { getBookById } from "@/lib/books";
 
 type PlayerPageProps = {
@@ -15,23 +15,17 @@ export default async function PlayerPage({ params }: PlayerPageProps) {
   }
 
   return (
-    <section className="player-page">
-      <div className="player-page__header">
-        <p>{book.author}</p>
-        <h1>{book.title}</h1>
-      </div>
-      <p className="player-page__summary">{book.summary}</p>
-      <AudioPlayer
-        audioLink={book.audioLink}
-        book={{
-          id: book.id,
-          author: book.author,
-          title: book.title,
-          subTitle: book.subTitle,
-          imageLink: book.imageLink,
-          subscriptionRequired: book.subscriptionRequired,
-        }}
-      />
-    </section>
+    <PlayerAccessGate
+      audioLink={book.audioLink}
+      book={{
+        id: book.id,
+        author: book.author,
+        title: book.title,
+        subTitle: book.subTitle,
+        imageLink: book.imageLink,
+        subscriptionRequired: book.subscriptionRequired,
+        summary: book.summary,
+      }}
+    />
   );
 }
