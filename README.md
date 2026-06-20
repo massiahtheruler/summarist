@@ -20,6 +20,22 @@ Premium User
 Email: guest@gmail.com
 Password: guest123
 
+Project Preview
+
+These screenshots show the full subscription product flow: the landing page, authentication, book summary experience, audio player, Stripe checkout entry, and payment verification step.
+
+![Summarist landing page](docs/screenshots/summarist-home.png)
+
+![Summarist authentication modal](docs/screenshots/summarist-login.png)
+
+![Book summary page](docs/screenshots/summarist-summary.png)
+
+![Audiobook player page](docs/screenshots/summarist-player.png)
+
+![Stripe checkout start](docs/screenshots/summarist-checkout-start.png)
+
+![Payment verification](docs/screenshots/summarist-verify-payment.png)
+
 ⸻
 
 Key Features
