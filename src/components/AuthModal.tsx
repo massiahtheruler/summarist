@@ -32,6 +32,26 @@ function getAuthErrorMessage(error: unknown) {
     return "Google login was closed before finishing.";
   }
 
+  if (message.includes("auth/popup-blocked")) {
+    return "Your browser blocked the Google sign-in popup.";
+  }
+
+  if (message.includes("auth/cancelled-popup-request")) {
+    return "Another login popup was already open. Close it and try again.";
+  }
+
+  if (message.includes("auth/operation-not-allowed")) {
+    return "Google sign-in is not enabled in Firebase yet.";
+  }
+
+  if (message.includes("auth/unauthorized-domain")) {
+    return "This domain is not authorized for Google sign-in in Firebase.";
+  }
+
+  if (message.includes("auth/account-exists-with-different-credential")) {
+    return "That email already exists with a different sign-in method.";
+  }
+
   return "Something went wrong. Try again.";
 }
 

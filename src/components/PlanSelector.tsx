@@ -49,7 +49,7 @@ export function PlanSelector() {
     }
 
     if (hasPremium) {
-      setError("You already have premium access on this device.");
+      setError("You already have premium access on this account.");
       return;
     }
 

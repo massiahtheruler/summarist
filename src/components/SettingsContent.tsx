@@ -10,7 +10,7 @@ import { useSubscription } from "@/context/SubscriptionContext";
 export function SettingsContent() {
   const searchParams = useSearchParams();
   const { isAuthReady, openAuthModal, user } = useAuth();
-  const { hasPremium, markPremium, plan } = useSubscription();
+  const { clearPremium, hasPremium, markPremium, plan } = useSubscription();
 
   useEffect(() => {
     const checkoutStatus = searchParams.get("checkout");
@@ -23,6 +23,18 @@ export function SettingsContent() {
       markPremium(checkoutPlan);
     }
   }, [markPremium, searchParams]);
+
+  function handleCancelMembership() {
+    const confirmed = window.confirm(
+      "Cancel premium membership for this account?",
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    clearPremium();
+  }
 
   if (!isAuthReady) {
     return (
@@ -72,12 +84,21 @@ export function SettingsContent() {
             {hasPremium
               ? plan === "yearly"
                 ? "Premium Plus"
-                : "Premium"
+              : "Premium"
               : "Basic"}
           </p>
         </div>
         {hasPremium ? (
-          <span className="settings-panel__badge">Active</span>
+          <div className="settings-panel__actions">
+            <span className="settings-panel__badge">Active</span>
+            <button
+              className="btn btn--secondary settings-panel__button"
+              onClick={handleCancelMembership}
+              type="button"
+            >
+              Cancel membership
+            </button>
+          </div>
         ) : (
           <Link className="btn settings-panel__button" href="/choose-plan">
             Upgrade to Premium

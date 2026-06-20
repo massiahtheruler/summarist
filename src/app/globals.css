@@ -958,6 +958,13 @@ button:disabled {
   max-width: 220px;
 }
 
+.settings-panel__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
 .settings-panel__badge {
   border-radius: 999px;
   background-color: #e7f8ef;
@@ -1745,6 +1752,10 @@ button:disabled {
 
   .settings-panel__button {
     margin-top: 20px;
+  }
+
+  .settings-panel__actions {
+    align-items: flex-start;
   }
 
   .book-detail__image {
